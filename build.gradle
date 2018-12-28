@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'hello.test01'
+mainClassName = 'hello.test03'
 
 repositories {
   mavenCentral()
@@ -28,7 +28,7 @@ sourceSets {
 jar {
   baseName = 'app'
   manifest {
-    attributes 'Main-Class': 'hello.test01'
+    attributes 'Main-Class': 'hello.test03'
   }
 }
 

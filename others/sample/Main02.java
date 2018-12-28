@@ -8,6 +8,7 @@ public class Main02 {
     
     CFlyMachine arr[] = new CFlyMachine[10];
     Random rand = new Random();
+
     int a,b,c;
     for (int i=0; i<10; i++){
       a = rand.nextInt(50000-5000)+5000;
