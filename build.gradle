@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'network.SampleSelector'
+mainClassName = 'demo.CallbackDemo'
 
 repositories {
   mavenCentral()
@@ -38,7 +38,7 @@ task clientJar(type: Jar){
   baseName = 'client'
   from sourceSets.main.output
   manifest {
-    attributes 'Main-Class': 'network.Client02'
+    attributes 'Main-Class': 'network.EpollClient'
   }
 }
 
@@ -46,7 +46,7 @@ task serverJar(type: Jar){
   baseName = 'server'
   from sourceSets.main.output
   manifest {
-    attributes 'Main-Class': 'network.Server02'
+    attributes 'Main-Class': 'network.EpollServer'
   }
 }
 
