@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Flows.SamplePublisher'
+mainClassName = 'network.SampleSelector'
 
 repositories {
   mavenCentral()
@@ -30,7 +30,7 @@ sourceSets {
 jar {
   baseName = 'app'
   manifest {
-    attributes 'Main-Class': 'Flows.SamplePublisher'
+    attributes 'Main-Class': mainClassName
   }
 }
 
