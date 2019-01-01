@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'demo.CallbackDemo'
+mainClassName = 'hello.test04'
 
 repositories {
   mavenCentral()
