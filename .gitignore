@@ -25,6 +25,7 @@ hs_err_pid*
 build/
 bin/
 .vscode
+.idea
 .settings
 .gradle
 .classpath
@@ -33,4 +34,4 @@ gradlew
 gradlew.bat
 gradle/
 
-
+Java_test.iml

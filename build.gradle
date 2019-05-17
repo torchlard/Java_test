@@ -1,44 +1,46 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Concurrency.DaemonDemo'
+// mainClassName = 'demo.Entry'
+mainClassName = 'DB.Entry'
 
 repositories {
   mavenCentral()
 }
 
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
-
-// buildscript {
-//   repositories {
-//     mavenCentral()
-//   }
-//   dependencies {
-//     classpath "mysql:mysql-connector-java:8.0.13"
-//   }
-// }
-
-// configurations {
-//   driver
-// }
-
-dependencies {
-  runtimeClasspath group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
-  testCompile('org.junit.jupiter:junit-jupiter-api:5.3.2')
-  testCompile('org.junit.jupiter:junit-jupiter-params:5.3.2')
-  testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.2')
+springBootVersion = '2.1.4.RELEASE'
+buildscript {
+	ext {
+		springBootVersion = '2.1.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
-// URLClassLoader loader = GroovyObject.class.classLoader
-// // configurations.driver.each {
-// //   File file -> println(file.toURL())
-// // }
-// configurations.driver.each {
-//   File file -> loader.addURL(file.toURL())
-// }
-// // configurations.runtimeClasspath.each { println it }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
+
+dependencies {
+  compile("org.springframework.boot:spring-boot:${springBootVersion}")
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.1.4.RELEASE'
+  compile('org.springframework.boot:spring-boot-starter-data-jpa:2.1.4.RELEASE')
+  compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.4.RELEASE'
+  // compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	// compile('org.springframework.boot:spring-boot-starter-web')
+  // compile('org.springframework.boot:spring-boot-starter-security')
+	// compile('org.springframework.session:spring-session')
+
+  runtimeClasspath group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
+
+  // testCompile('org.junit.jupiter:junit-jupiter-api:5.3.2')
+  // testCompile('org.junit.jupiter:junit-jupiter-params:5.3.2')
+  // testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.2')
+}
 
 sourceSets {
   main {
@@ -58,33 +60,32 @@ jar {
   }
 }
 
-task clientJar(type: Jar){
-  baseName = 'client'
-  from sourceSets.main.output
-  manifest {
-    attributes 'Main-Class': 'network.EpollClient'
-  }
-}
+// task clientJar(type: Jar){
+//   baseName = 'client'
+//   from sourceSets.main.output
+//   manifest {
+//     attributes 'Main-Class': 'network.EpollClient'
+//   }
+// }
 
-task serverJar(type: Jar){
-  baseName = 'server'
-  from sourceSets.main.output
-  manifest {
-    attributes 'Main-Class': 'network.EpollServer'
-  }
-}
+// task serverJar(type: Jar){
+//   baseName = 'server'
+//   from sourceSets.main.output
+//   manifest {
+//     attributes 'Main-Class': 'network.EpollServer'
+//   }
+// }
 
-task bm {
-  dependsOn 'clientJar'
-  dependsOn 'serverJar'
-}
+// task bm {
+//   dependsOn 'clientJar'
+//   dependsOn 'serverJar'
+// }
 
-test {
-  useJUnitPlatform {
-    includeEngines 'junit-jupiter'
-  }
-  // systemProperty "java.util.logging.manager"
-}
+// test {
+//   useJUnitPlatform {
+//     includeEngines 'junit-jupiter'
+//   }
+// }
 
 
 

@@ -3,8 +3,12 @@ package DB;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+
 public interface StudentDAO {
-  public void add(Student s) throws SQLException;
+
+  // public void add(Student s) throws SQLException;
   // public void update(Student s) throws SQLException;
   // public void delete(int id) throws SQLException;
 
