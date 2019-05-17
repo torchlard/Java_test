@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'demo.cornJob'
+
+repositories {
+  mavenCentral()
+}
+
+sourceCompatibility = 1.12
+targetCompatibility = 1.12
+
+dependencies {
+  compile group: 'io.netty', name: 'netty-all', version: '4.1.36.Final'
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src/main/java']
+    }
+    resources {
+      srcDirs = ['src/main/resources']
+    }
+  }
+}
+
+jar {
+  baseName = 'app'
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}
+
+// tasks.withType(JavaCompile).each {
+//   it.options.compileArgs.add('--enable-preview')
+// }
+
+// test {
+//   jvmArgs(['--enable-preview'])
+// }
+
+
