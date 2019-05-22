@@ -2,23 +2,39 @@ package DB;
 
 import java.awt.print.Pageable;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Stream;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.GenericDeclaration;
+import java.lang.reflect.TypeVariable;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+
 
 class dto {
   private final String name;
@@ -57,8 +73,13 @@ interface NamesOnly {
 }
 
 
+class MyGenericClass<U>{}
+
+
 @Transactional
-public interface TeacherRepository<T extends Teacher2, ID extends Serializable> extends CommonRepo<T,ID>
+interface TeacherRepository<T extends Teacher2, ID extends Serializable> 
+  // extends CommonRepo<T,ID>, ITeacherCustom<T>
+  extends ICommonRepo<T,ID>
 {
   
   // List<T> findIdByName(String name);
@@ -83,8 +104,8 @@ public interface TeacherRepository<T extends Teacher2, ID extends Serializable> 
   List<NamesOnly> findAllBySex(String x);
 
 
-  @Query(value="select * from teacher where age>?1 order by ?2 DESC", nativeQuery=true)
-  List<T> getSth(int x, String sort);
+  @Query(value="select * from teacher where age>?1 DESC", nativeQuery=true)
+  List<T> getSth(int x);
 
   @Query(value="select * from teacher where age>?1 "+
     "and name like ?2%", nativeQuery=true)
@@ -104,14 +125,43 @@ public interface TeacherRepository<T extends Teacher2, ID extends Serializable> 
   Integer runPlus1(Integer arg);
 
   List<T> query1();
-  // List<Object[]> query2();
+
+
+
+  default List<T> getxx1(int age, String order){
+    BiFunction<Integer,String,String> querySQL = (_age, _order) ->
+      "select id,name,sex,num, age,largeNum "+
+      "from teacher where age>" + _age +
+      " order by " + _order;
+
+    return toObjectList(querySQL.apply(age, order));
+  }
+
+  
+  default public List<Map<String,Object>> getxx2(int age, String order){
+    BiFunction<Integer,String,String> querySQL = (_age, _order) ->
+      "select id,name,sex,num, age,largeNum "+
+      "from teacher where age>" + _age +
+      " order by " + _order;
+
+    return toResultList(querySQL.apply(age, order));
+  }
+
+  default Map<String,Object> countxx1(){
+    String sql = "select num from teacher where id=1";
+
+    Map<String,Object> map = new HashMap<>();
+    return toResultMap(map, sql);
+  }
+
+  default T objxx1(){
+    String sql = "select * from teacher where id=10";
+    return toObject(sql);
+  }
+
+  
+  
 
 }
-
-
-
-
-
-
-
+  
 

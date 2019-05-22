@@ -1,6 +1,7 @@
 package DB;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,44 +15,62 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 // @EnableAutoConfiguration
 // @ComponentScan
+@Configuration
+@EnableJpaRepositories(repositoryBaseClass = BaseCustomRepo.class)
 @SpringBootApplication
 public class Entry implements CommandLineRunner {
   public static void main(String[] args) {
     SpringApplication.run(Entry.class, args);
   }
 
-  // @EventListener(ApplicationReadyEvent.class)
-  // public void doSth(){
-  // }
+  
   @Autowired
-  StudentDAOImpl im;
-  @Autowired
-  TeacherRepository repo;
-  // @Autowired
-  // UserRepository repo2;
+  TeacherRepo2 repo;
+  // TeacherRepository<Teacher2,Integer> repo;
 
-  public static String genStr(int size){
-    int left = 97;
-    int right = 122;
-    Random rand = new Random();
-    StringBuilder buffer = new StringBuilder(size);
-    for (int i=0; i<size; i++){
-      int randint = left + (int)(rand.nextFloat()*(right-left+1));
-      buffer.append((char) randint);
-    }
-    return buffer.toString();
-  } 
+  // public static String genStr(int size){
+  //   int left = 97;
+  //   int right = 122;
+  //   Random rand = new Random();
+  //   StringBuilder buffer = new StringBuilder(size);
+  //   for (int i=0; i<size; i++){
+  //     int randint = left + (int)(rand.nextFloat()*(right-left+1));
+  //     buffer.append((char) randint);
+  //   }
+  //   return buffer.toString();
+  // } 
 
   @Override
   public void run(String... args0) throws Exception {
+
+    // repo.getxx1(20, "age").forEach(System.out::println);
+    // repo.getxx1(20, "age").forEach(System.out::println);
+
+    // int a = Integer.parseInt(repo.countxx1().get("ct").toString());
+    // System.out.println( a+3);
+    
+    Teacher2 t = repo.objxx1();
+    System.out.println(t);
+
+    // repo.objxx2().forEach(System.out::println);
+
+    // Teacher2[] ll = new Teacher2[2];
+    // ll[0] = new Teacher2("jo1","M",59.8f, 31, new BigInteger("547"));
+    // ll[1] = new Teacher2("jo2","M",59.8f, 31, new BigInteger("547"));
+    
+
+    // System.out.println("----");
+    // repo.findAllByAgeNotIn(23).forEach(System.out::println);
     
     // System.out.println("count: " +im.getCount());
     // System.out.println("teacher: " +im.getObj1());
@@ -106,6 +125,7 @@ public class Entry implements CommandLineRunner {
 
     // Integer i=1;
     // Teacher2 t = new Teacher2("jk", "M", 12.5f, 10, new BigDecimal(1));
+    System.out.println("======");
 
 
   }

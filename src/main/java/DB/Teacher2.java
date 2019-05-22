@@ -1,6 +1,6 @@
 package DB;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -41,7 +41,7 @@ public class Teacher2 {
   private String sex;
   private float num;
   private int age;
-  private BigDecimal largeNum;
+  private BigInteger largeNum;
   private String hello;
 
   @Id
@@ -68,7 +68,7 @@ public class Teacher2 {
 
   @Basic
   @Column(name="largeNum")
-  public BigDecimal getLargeNum(){
+  public BigInteger getLargeNum(){
     return largeNum;
   }
 
@@ -87,27 +87,27 @@ public class Teacher2 {
   public void setAge(int age){
     this.age = age;
   }
-  public void setLargeNum(BigDecimal b){
+  public void setLargeNum(BigInteger b){
     this.largeNum = b;
   }
 
-  public Teacher2(Integer id,String name, String sex, float num, int age, BigDecimal b){
+  public Teacher2(Integer id,String name, String sex, float num, int age, BigInteger largeNum){
     super();
     this.id = id;
     this.name = name;
     this.sex = sex;
     this.num = num;
     this.age = age;
-    this.largeNum = b;
+    this.largeNum = largeNum;
   }
 
-  public Teacher2(String name, String sex, float num, int age, BigDecimal b){
+  public Teacher2(String name, String sex, float num, int age, BigInteger largeNum){
     super();
     this.name = name;
     this.sex = sex;
     this.num = num;
     this.age = age;
-    this.largeNum = b;
+    this.largeNum = largeNum;
   }
 
   public Teacher2(String name, String sex){
