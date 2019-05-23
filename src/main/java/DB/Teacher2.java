@@ -1,5 +1,6 @@
 package DB;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -19,6 +20,10 @@ import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 
 @Entity
 @NamedStoredProcedureQuery(name="teacher.plus1", procedureName="plus1", parameters = {
@@ -35,14 +40,20 @@ import javax.persistence.Transient;
     @ColumnResult(name="name")
   })
 @Table(name="teacher")
-public class Teacher2 {
+@SQLDelete(sql = "update teacher set delete_flag=1 where id=?")
+@Where(clause="age > 0")
+public class Teacher2 implements Serializable {
   private Integer id;
   private String name;
   private String sex;
+  @Column(name="num")
   private float num;
   private int age;
   private BigInteger largeNum;
   private String hello;
+
+  @Formula("age*100")
+  private int sexnum;
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -64,6 +75,10 @@ public class Teacher2 {
   @Transient
   public String getHello(){
     return hello;
+  }
+  @Transient
+  public int getSexnum(){
+    return sexnum;
   }
 
   @Basic
@@ -123,7 +138,7 @@ public class Teacher2 {
   @Override
   public String toString(){
     return "Person [id="+id+", name=" + name + ", sex=" + sex + ", num=" + num + ", age=" +age+ 
-      ", largeNum="+ largeNum +"]";
+      ", largeNum="+ largeNum +", sexnum="+sexnum+"]";
   }
 
   private void tableScript(){

@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 // @EnableAutoConfiguration
 // @ComponentScan
 @Configuration
@@ -59,8 +60,28 @@ public class Entry implements CommandLineRunner {
     // int a = Integer.parseInt(repo.countxx1().get("ct").toString());
     // System.out.println( a+3);
     
-    Teacher2 t = repo.objxx1();
-    System.out.println(t);
+    // Teacher2 t = repo.objxx1();
+    // System.out.println(t);
+
+
+    // repo.getSth5(20f).forEach(System.out::println);
+    // repo.findAllByAgeNotIn(67).forEach(System.out::println);
+
+    repo.showAll().forEach(System.out::println);
+
+    // List<Integer> ll = (List<Integer>)  new ArrayList<Long>();
+
+    // Long l = (Long) new Integer("1");
+    // Integer h = (Integer) new Long("1");
+
+    float h1 = (float) 1d;
+    double h2 = 1f;
+
+    long y1 = 1;
+    int y2 = (int) 2543765l;
+
+
+
 
     // repo.objxx2().forEach(System.out::println);
 

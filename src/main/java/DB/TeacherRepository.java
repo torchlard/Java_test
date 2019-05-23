@@ -84,48 +84,52 @@ interface TeacherRepository<T extends Teacher2, ID extends Serializable>
   
   // List<T> findIdByName(String name);
   // List<T> findBySex(String sex);
-  List<T> findAllByAge(int age);
+  // List<T> findAllByAge(int age);
   
-  List<T> findAllByLargeNumIsNull();
-  List<T> findAllByNameLike(String a);
-  List<T> findAllByNameContaining(String a);
+  // List<T> findAllByLargeNumIsNull();
+  // List<T> findAllByNameLike(String a);
+  // List<T> findAllByNameContaining(String a);
 
-  List<T> findAllByAgeNotIn(int... a);
-  List<T> findAllByAgeNotInOrderByAge(int... a);
-  List<T> findIxxxByAgeNotInOrderByAgeDesc(int... a);
+  // List<T> findAllByAgeNotIn(int... a);
+  // List<T> findAllByAgeNotInOrderByAge(int... a);
+  // List<T> findIxxxByAgeNotInOrderByAgeDesc(int... a);
   
-  long countByAgeNotIn(int... a);
-  List<T> getByAgeIn(int... a);
-  List<T> readByAgeIn(int... a);
-  List<T> queryByAgeIn(int... a);
+  // long countByAgeNotIn(int... a);
+  // List<T> getByAgeIn(int... a);
+  // List<T> readByAgeIn(int... a);
+  // List<T> queryByAgeIn(int... a);
 
-  List<T> findFirst3BySex(String x);
-  // List<dto> findAllBySex(String x);
-  List<NamesOnly> findAllBySex(String x);
+  // List<T> findFirst3BySex(String x);
+  // // List<dto> findAllBySex(String x);
+  // List<NamesOnly> findAllBySex(String x);
 
 
-  @Query(value="select * from teacher where age>?1 DESC", nativeQuery=true)
-  List<T> getSth(int x);
+  // @Query(value="select * from teacher where num>?1", nativeQuery=true)
+  // List<T> getSth(float x);
 
-  @Query(value="select * from teacher where age>?1 "+
-    "and name like ?2%", nativeQuery=true)
-  List<T> getSth2(int x, String name);
+  // @Query(value="select * from teacher where age>?1 "+
+  //   "and name like ?2%", nativeQuery=true)
+  // List<T> getSth2(int x, String name);
 
-  @Query("select t from #{#entityName} t where t.age > ?1")
-  List<T> getSth3(int x, Sort sort);
+  // @Query("select t from #{#entityName} t where t.age > ?1")
+  // List<T> getSth3(int x, Sort sort);
 
-  @Query("select t from Teacher2 t where t.age > ?1")
-  List<T> getSth4(int x, PageRequest page);
+  // @Query("select t from Teacher2 t where t.age > ?1")
+  // List<T> getSth4(int x, PageRequest page);
+
+  // @Query("select t from Teacher2 t where t.num > ?1")
+  // List<T> getSth5(float x);
   
-  @Modifying
-  @Query("update Teacher2 t set t.age = ?1 where id=?2")
-  void setAge1(int age, int id);
+  // @Modifying
+  // @Query("update Teacher2 t set t.age = ?1 where id=?2")
+  // void setAge1(int age, int id);
 
-  @Procedure("plus1")
-  Integer runPlus1(Integer arg);
+  // @Procedure("plus1")
+  // Integer runPlus1(Integer arg);
 
-  List<T> query1();
+  // List<T> query1();
 
+  
 
 
   default List<T> getxx1(int age, String order){
@@ -154,10 +158,12 @@ interface TeacherRepository<T extends Teacher2, ID extends Serializable>
     return toResultMap(map, sql);
   }
 
-  default T objxx1(){
-    String sql = "select * from teacher where id=10";
-    return toObject(sql);
-  }
+
+
+  // default T objxx1(){
+  //   String sql = "select * from teacher where id=10";
+  //   return toObject(sql);
+  // }
 
   
   

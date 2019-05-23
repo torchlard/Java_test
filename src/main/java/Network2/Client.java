@@ -1,13 +1,13 @@
-package Network2;
+// package Network2;
 
-import java.net.http.HttpClient;
+// import java.net.http.HttpClient;
 
-public class Client {
+// public class Client {
 
-  HttpClient client = new HttpClient();
+//   HttpClient client = new HttpClient();
   
 
-}
+// }
 
 
 

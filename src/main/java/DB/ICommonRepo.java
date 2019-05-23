@@ -3,6 +3,7 @@ package DB;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -26,7 +27,7 @@ public interface ICommonRepo<T, ID> extends JpaRepository<T,ID>
   // List<T> saveAll(List<T> list);
 
   List<T> toObjectList(String sql);
-	T toObject(String sql);
+	Optional<T> toObject(String sql);
 
   List<Map<String,Object>> toResultList(String sql);
 	

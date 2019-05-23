@@ -17,14 +17,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public class TeacherRepo2 {
+public class TeacherRepo2 extends AbstractDAO<Teacher2> {
 
   @Autowired
   TeacherRepository repo;
-
-  public Teacher2 objxx1(){
-    return repo.objxx1();
-  }
 
   public List<Teacher2> objxx2(){
 
@@ -52,6 +48,11 @@ public class TeacherRepo2 {
 
   public void saves(Iterable<Teacher2> ll){
     repo.saveAll(ll);
+  }
+
+  public List<Teacher2> showAll(){
+    String sql = "select * from teacher where age>48;";
+    return toObjectList(sql, Teacher2.class);
   }
 
 
