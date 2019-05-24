@@ -1,4 +1,4 @@
-package DB;
+package JDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,8 @@ import java.util.Map;
 import java.sql.PreparedStatement;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import DB.Teacher;
 
 
 public class Test01 {

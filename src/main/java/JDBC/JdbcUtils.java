@@ -1,4 +1,4 @@
-package DB;
+package JDBC;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.lang.reflect.Field;
 import java.util.stream.IntStream;
+
+import DB.Student;
 
 
 public class JdbcUtils {
