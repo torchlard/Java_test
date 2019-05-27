@@ -21,6 +21,7 @@ import java.util.LinkedList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Tuple;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -37,14 +38,15 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 
 class dto {
+  private final Integer id;
   private final String name;
   private final String sex;
   // private final String full;
-  private final float num;
-  public dto(String name,String sex,float num){
+
+  public dto(Integer id, String name, String sex){
+    this.id = id;
     this.name = name;
     this.sex = sex;
-    this.num = num;
   } 
   // public String getName(){
   //   return name;
@@ -55,12 +57,12 @@ class dto {
   // public String getFull(){
   //   return name+"::"+sex;
   // }
-  public BigInteger getNumMod(){
-    return BigInteger.valueOf((long)num);
-  }
-  // public String toString(){
-  //   return name+", "+sex;
+  // public BigInteger getNumMod(){
+  //   return BigInteger.valueOf((long)num);
   // }
+  public String toString(){
+    return id+", "+name+", "+sex;
+  }
 }
 
 interface NamesOnly {
@@ -70,6 +72,12 @@ interface NamesOnly {
   String getFull();
   @Value("#{target.num*8}")
   int getMod();
+}
+
+interface subset {
+  Integer getId();
+  String getName();
+  String getSex();
 }
 
 
@@ -90,7 +98,7 @@ interface TeacherRepository<T extends Teacher2, ID extends Serializable>
   // List<T> findAllByNameLike(String a);
   // List<T> findAllByNameContaining(String a);
 
-  // List<T> findAllByAgeNotIn(int... a);
+  List<T> findAllByAgeNotIn(int... a);
   // List<T> findAllByAgeNotInOrderByAge(int... a);
   // List<T> findIxxxByAgeNotInOrderByAgeDesc(int... a);
   
@@ -107,9 +115,10 @@ interface TeacherRepository<T extends Teacher2, ID extends Serializable>
   // @Query(value="select * from teacher where num>?1", nativeQuery=true)
   // List<T> getSth(float x);
 
-  // @Query(value="select * from teacher where age>?1 "+
-  //   "and name like ?2%", nativeQuery=true)
-  // List<T> getSth2(int x, String name);
+  @Query(value="select * from teacher where age>?1 ", nativeQuery=true)
+  List<subset> getSth2(int x);
+
+  
 
   // @Query("select t from #{#entityName} t where t.age > ?1")
   // List<T> getSth3(int x, Sort sort);
@@ -129,34 +138,42 @@ interface TeacherRepository<T extends Teacher2, ID extends Serializable>
 
   // List<T> query1();
 
+  // List<dto> findAllBySex(String sex);
+
+
+  // default List<T> getxx1(int age, String order){
+  //   BiFunction<Integer,String,String> querySQL = (_age, _order) ->
+  //     "select id,name,sex,num, age, largeNum "+
+  //     "from teacher where age>" + _age +
+  //     " order by " + _order;
+
+  //   return toObjectList(querySQL.apply(age, order));
+  // }
+
   
+  // default public List<Map<String,Object>> getxx2(int age, String order){
+  //   BiFunction<Integer,String,String> querySQL = (_age, _order) ->
+  //     "select id,name,sex,num, age, largeNum "+
+  //     "from teacher where age>" + _age +
+  //     " order by " + _order;
 
-
-  default List<T> getxx1(int age, String order){
-    BiFunction<Integer,String,String> querySQL = (_age, _order) ->
-      "select id,name,sex,num, age,largeNum "+
-      "from teacher where age>" + _age +
-      " order by " + _order;
-
-    return toObjectList(querySQL.apply(age, order));
-  }
+  //   return toResultList(querySQL.apply(age, order));
+  // }
 
   
-  default public List<Map<String,Object>> getxx2(int age, String order){
-    BiFunction<Integer,String,String> querySQL = (_age, _order) ->
-      "select id,name,sex,num, age,largeNum "+
-      "from teacher where age>" + _age +
-      " order by " + _order;
+  default List<Tuple> getxx3(){
+    String querySQL = 
+      "select id,name,sex from teacher where age>20"; 
 
-    return toResultList(querySQL.apply(age, order));
+    return toObjectList(querySQL, Tuple.class);
   }
 
-  default Map<String,Object> countxx1(){
-    String sql = "select num from teacher where id=1";
+  // default Map<String,Object> countxx1(){
+  //   String sql = "select num from teacher where id=1";
 
-    Map<String,Object> map = new HashMap<>();
-    return toResultMap(map, sql);
-  }
+  //   Map<String,Object> map = new HashMap<>();
+  //   return toResultMap(map, sql);
+  // }
 
 
 

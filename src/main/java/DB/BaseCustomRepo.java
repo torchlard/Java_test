@@ -42,6 +42,11 @@ public class BaseCustomRepo<T,ID> extends SimpleJpaRepository<T,ID> implements I
     return baseToObject(entityManager,sql,super.getDomainClass());
   }
 
+  
+  public <U> List<U> toObjectList(String sql, Class<U> cls){
+    return baseToObject(entityManager,sql, cls);
+  }
+
   public Optional<T> toObject(String sql){
     List<T> results = baseToObject(entityManager, sql, super.getDomainClass());
     return Optional.of(results.get(0));

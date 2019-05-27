@@ -25,7 +25,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 // @EnableAutoConfiguration
-// @ComponentScan
+@ComponentScan
 @Configuration
 @EnableJpaRepositories(repositoryBaseClass = BaseCustomRepo.class)
 @SpringBootApplication
@@ -36,8 +36,8 @@ public class Entry implements CommandLineRunner {
 
   
   @Autowired
-  TeacherRepo2 repo;
-  // TeacherRepository<Teacher2,Integer> repo;
+  TeacherRepository<Teacher2,Integer> repo;
+  // TeacherRepo2 repo;
 
   // public static String genStr(int size){
   //   int left = 97;
@@ -54,8 +54,16 @@ public class Entry implements CommandLineRunner {
   @Override
   public void run(String... args0) throws Exception {
 
+
+    repo.findAllByAgeNotIn(20).forEach(System.out::println);
+    
     // repo.getxx1(20, "age").forEach(System.out::println);
     // repo.getxx1(20, "age").forEach(System.out::println);
+
+    // repo.findAllBySex("M").forEach(System.out::println);
+    // repo.getxx3().forEach(System.out::println);
+    // repo.getxx3().forEach(i -> System.out.println(i.toArray()[1] ));
+    // repo.getSth2(20).forEach(i -> System.out.println(i.getId()+ i.getName()+", "+ i.getSex() ));
 
     // int a = Integer.parseInt(repo.countxx1().get("ct").toString());
     // System.out.println( a+3);
@@ -67,20 +75,7 @@ public class Entry implements CommandLineRunner {
     // repo.getSth5(20f).forEach(System.out::println);
     // repo.findAllByAgeNotIn(67).forEach(System.out::println);
 
-    repo.showAll().forEach(System.out::println);
-
-    // List<Integer> ll = (List<Integer>)  new ArrayList<Long>();
-
-    // Long l = (Long) new Integer("1");
-    // Integer h = (Integer) new Long("1");
-
-    float h1 = (float) 1d;
-    double h2 = 1f;
-
-    long y1 = 1;
-    int y2 = (int) 2543765l;
-
-
+    // repo.showAll().forEach(System.out::println);
 
 
     // repo.objxx2().forEach(System.out::println);

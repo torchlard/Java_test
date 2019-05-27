@@ -13,11 +13,11 @@ import Util.SqlParser;
 
 public interface ICustomRepo<T> {
 
-  default List<T> baseToObject(EntityManager em, String sql, Class<T> cls){
+  default <U> List<U> baseToObject(EntityManager em, String sql, Class<U> cls){
     // Class<T> cls = super.getDomainClass();
     Query query = em.createNativeQuery(sql, cls);
     @SuppressWarnings("unchecked")
-    List<T> res = query.getResultList();
+    List<U> res = query.getResultList();
     return res;
   }
 

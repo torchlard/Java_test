@@ -341,74 +341,74 @@ public class JdbcUtils {
 	
 
 
-  public static <T> List<T> toObjectList2(Connection conn, Class<T> cls, String sql){
+  // public static <T> List<T> toObjectList2(Connection conn, Class<T> cls, String sql){
 
-    List<T> objectList = new ArrayList<>();
+  //   List<T> objectList = new ArrayList<>();
 
-		try(Statement stmt = conn.createStatement();
-			  ResultSet rs = stmt.executeQuery(sql)
-		){
-      ResultSetMetaData metaData = rs.getMetaData();
-      List<Method> methodList = new ArrayList<>();
-      List<Method> rsList = new ArrayList<>();
+	// 	try(Statement stmt = conn.createStatement();
+	// 		  ResultSet rs = stmt.executeQuery(sql)
+	// 	){
+  //     ResultSetMetaData metaData = rs.getMetaData();
+  //     List<Method> methodList = new ArrayList<>();
+  //     List<Method> rsList = new ArrayList<>();
 
-      for(int i=1; i<= metaData.getColumnCount(); i++){
-        String fieldName = metaData.getColumnLabel(i);
-        Field field = cls.getDeclaredField(fieldName);
-        Method method = cls.getMethod( "set"+capitalize(fieldName) , field.getType());
-        methodList.add(method);
+  //     for(int i=1; i<= metaData.getColumnCount(); i++){
+  //       String fieldName = metaData.getColumnLabel(i);
+  //       Field field = cls.getDeclaredField(fieldName);
+  //       Method method = cls.getMethod( "set"+capitalize(fieldName) , field.getType());
+  //       methodList.add(method);
         
-        String types = field.getType().getSimpleName();
-        if(types.equals("Integer")) types = "Int";
-        Method m2 = (ResultSet.class).getMethod("get"+capitalize(types), int.class );
-        rsList.add(m2);
-      }
+  //       String types = field.getType().getSimpleName();
+  //       if(types.equals("Integer")) types = "Int";
+  //       Method m2 = (ResultSet.class).getMethod("get"+capitalize(types), int.class );
+  //       rsList.add(m2);
+  //     }
 
-      while(rs.next()) {
-          T obj = (T) cls.newInstance();
-          for(int i=1; i<= metaData.getColumnCount(); i++){
-            // stu.setName(rs.getString(0))
-            methodList.get(i-1).invoke(obj, rsList.get(i-1).invoke(rs, i) );
-          }
-          objectList.add(obj);
-      }
+  //     while(rs.next()) {
+  //         T obj = (T) cls.newInstance();
+  //         for(int i=1; i<= metaData.getColumnCount(); i++){
+  //           // stu.setName(rs.getString(0))
+  //           methodList.get(i-1).invoke(obj, rsList.get(i-1).invoke(rs, i) );
+  //         }
+  //         objectList.add(obj);
+  //     }
 
-      return objectList;
+  //     return objectList;
     
-    } catch(Exception e){
-      e.printStackTrace();
-    } catch(Throwable th) {
-      th.printStackTrace();
-    }
-    return null;
-  }
+  //   } catch(Exception e){
+  //     e.printStackTrace();
+  //   } catch(Throwable th) {
+  //     th.printStackTrace();
+  //   }
+  //   return null;
+  // }
 
-  public static List<Student> toObjectList3(Connection conn, String sql){
+  // public static List<Student> toObjectList3(Connection conn, String sql){
 
-    List<Student> objectList = new ArrayList<>();
+  //   List<Student> objectList = new ArrayList<>();
 
-		try(Statement stmt = conn.createStatement();
-			  ResultSet rs = stmt.executeQuery(sql)
-		){
-      while(rs.next()) {
-          Student stu = new Student();
-          stu.setId(rs.getInt(1));
-          stu.setName(rs.getString(2));
-          stu.setSex(rs.getString(3));
-          stu.setJob1(rs.getFloat(4));
-          stu.setAge(rs.getInt(5));
-          objectList.add(stu);
-      }
+	// 	try(Statement stmt = conn.createStatement();
+	// 		  ResultSet rs = stmt.executeQuery(sql)
+	// 	){
+  //     while(rs.next()) {
+  //         Student stu = new Student();
+  //         stu.setId(rs.getInt(1));
+  //         stu.setName(rs.getString(2));
+  //         stu.setSex(rs.getString(3));
+  //         stu.setJob1(rs.getFloat(4));
+  //         stu.setAge(rs.getInt(5));
+  //         objectList.add(stu);
+  //     }
 
-      return objectList;
+  //     return objectList;
     
-    } catch(Exception e){
-      e.printStackTrace();
-    } catch(Throwable th) {
-      th.printStackTrace();
-    }
-    return null;
-  }
+  //   } catch(Exception e){
+  //     e.printStackTrace();
+  //   } catch(Throwable th) {
+  //     th.printStackTrace();
+  //   }
+  //   return null;
+  // }
 
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.ParameterMode;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.StoredProcedureParameter;
@@ -24,25 +25,29 @@ import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import javassist.SerialVersionUID;
 
+
+// @NamedStoredProcedureQuery(name="teacher.plus1", procedureName="plus1", parameters = {
+//   @StoredProcedureParameter(mode=ParameterMode.IN, name="arg", type=Integer.class),
+//   @StoredProcedureParameter(mode=ParameterMode.OUT, name="res", type=Integer.class)
+// })
+// @NamedNativeQueries(value={
+//   @NamedNativeQuery(name="Teacher2.query1", query="select * from teacher where age>40", resultClass = Teacher2.class),
+//   @NamedNativeQuery(name="Teacher2.query2", query="select * from teacher where name like 'j%'", resultSetMapping="tMap")
+// })
+// @SqlResultSetMapping(name="tMap", entities={},
+//   columns = {
+//     @ColumnResult(name="id"),
+//     @ColumnResult(name="name")
+//   })
+// @SQLDelete(sql = "update teacher set delete_flag=1 where id=?")
+// @Where(clause="age > 0")
 @Entity
-@NamedStoredProcedureQuery(name="teacher.plus1", procedureName="plus1", parameters = {
-  @StoredProcedureParameter(mode=ParameterMode.IN, name="arg", type=Integer.class),
-  @StoredProcedureParameter(mode=ParameterMode.OUT, name="res", type=Integer.class)
-})
-@NamedNativeQueries(value={
-  @NamedNativeQuery(name="Teacher2.query1", query="select * from teacher where age>40", resultClass = Teacher2.class),
-  @NamedNativeQuery(name="Teacher2.query2", query="select * from teacher where name like 'j%'", resultSetMapping="tMap")
-})
-@SqlResultSetMapping(name="tMap", entities={},
-  columns = {
-    @ColumnResult(name="id"),
-    @ColumnResult(name="name")
-  })
 @Table(name="teacher")
-@SQLDelete(sql = "update teacher set delete_flag=1 where id=?")
-@Where(clause="age > 0")
 public class Teacher2 implements Serializable {
+
+  @Id
   private Integer id;
   private String name;
   private String sex;
@@ -54,6 +59,13 @@ public class Teacher2 implements Serializable {
 
   @Formula("age*100")
   private int sexnum;
+
+  static final long SerialVersionUID = 54354325342l;
+
+  // specify 'private Teacher2 teacher' in class Student
+  @OneToMany(mappedBy = "teacher")
+  private List<Student> student;
+  
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -138,7 +150,9 @@ public class Teacher2 implements Serializable {
   @Override
   public String toString(){
     return "Person [id="+id+", name=" + name + ", sex=" + sex + ", num=" + num + ", age=" +age+ 
-      ", largeNum="+ largeNum +", sexnum="+sexnum+"]";
+      ", largeNum="+ largeNum +", sexnum="+sexnum + 
+      ", student="+student + 
+      "]";
   }
 
   private void tableScript(){

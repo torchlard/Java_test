@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import DB.Teacher;
+// import DB.Teacher;
 
 
 public class Test01 {
@@ -29,23 +29,23 @@ public class Test01 {
     try(Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/testdb", "root", "666666");
     ) {
 
-      List<Teacher> tt = new ArrayList<>();
-      Teacher t1 = new Teacher("t3", "M");
-      Teacher t2 = new Teacher("t4", "M");
-      tt.add(t1);
-      tt.add(t2);
+      // List<Teacher> tt = new ArrayList<>();
+      // Teacher t1 = new Teacher("t3", "M");
+      // Teacher t2 = new Teacher("t4", "M");
+      // tt.add(t1);
+      // tt.add(t2);
       
-        String sql = "insert into teacher(name,sex,num) values(?,?,?)";
-        // String sql = "insert into teacher(name,sex,num,age) values (?,?,?,?)";
-        // String sql = "select id from student where age is ?";
-        // String sql = "select * from teacher where id=2";
+      //   String sql = "insert into teacher(name,sex,num) values(?,?,?)";
+      //   // String sql = "insert into teacher(name,sex,num,age) values (?,?,?,?)";
+      //   // String sql = "select id from student where age is ?";
+      //   // String sql = "select * from teacher where id=2";
 
 
-        // Teacher ll = JdbcUtils.toObjectMap(conn, Teacher.class, sql);
-        // ll.stream().forEach(System.out::println);
+      //   // Teacher ll = JdbcUtils.toObjectMap(conn, Teacher.class, sql);
+      //   // ll.stream().forEach(System.out::println);
 
-        // JdbcUtils.batchUpdate(conn.prepareStatement(sql), tt, "name", "sex");
-        JdbcUtils.oneObjUpdate(conn.prepareStatement(sql), null, "name", "sex","num");
+      //   // JdbcUtils.batchUpdate(conn.prepareStatement(sql), tt, "name", "sex");
+      //   JdbcUtils.oneObjUpdate(conn.prepareStatement(sql), null, "name", "sex","num");
 
   
     } catch(SQLException ex){

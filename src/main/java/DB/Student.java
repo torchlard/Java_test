@@ -1,13 +1,30 @@
 package DB;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Repository;
 
+
+@Entity
+@Table(name="student")
 public class Student {
+
+  @Id
   private Integer id;
   private String name;
   private String sex;
-  private float job1;
-  private int age;
+  // @Column(name="teacher_id")
+  // private Integer teacherId;
+
+  @JoinColumn(name="teacher_id")
+  @ManyToOne(fetch=FetchType.LAZY)
+  private Teacher2 teacher;
 
   public Integer getId(){
     return id;
@@ -18,12 +35,10 @@ public class Student {
   public String getSex(){
     return sex;
   }
-  public float getJob1(){
-    return job1;
-  }
-  public int getAge(){
-    return age;
-  }
+  // public Integer getTeacherId(){
+  //   return teacherId;
+  // }
+
 
   public void setId(Integer id){
     this.id = id;
@@ -34,29 +49,16 @@ public class Student {
   public void setSex(String sex){
     this.sex = sex;
   }
-  public void setJob1(float job1){
-    this.job1 = job1;
-  }
-  public void setAge(int age){
-    this.age = age;
-  }
-
-  public Student(String name, String sex, float job1, int age){
-    super();
-    this.name = name;
-    this.sex = sex;
-    this.job1 = job1;
-    this.age = age;
-  }
-
+  // public void setTeacherId(Integer id){
+  //   this.teacherId = id;
+  // }
   
-  public Student(Integer id, String name, String sex, float job1, int age){
+  public Student(Integer id, String name, String sex){
     super();
     this.id = id;
     this.name = name;
     this.sex = sex;
-    this.job1 = job1;
-    this.age = age;
+    // this.teacherId = teacherId;
   }
 
   public Student(){
@@ -65,7 +67,9 @@ public class Student {
   
   @Override
   public String toString(){
-    return "Person [id="+id+", name=" + name + ", sex=" + sex + ", job1=" + job1 + ", age=" +age+" ]";
+    return "Person [id="+id+", name=" + name + ", sex=" + sex + 
+    // ", teacherId="+ teacherId +
+    " ]";
   }
   
 }

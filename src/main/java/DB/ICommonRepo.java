@@ -37,6 +37,7 @@ public interface ICommonRepo<T, ID> extends JpaRepository<T,ID>
 
   EntityManager getEntityManager();
 	
+	<U> List<U> toObjectList(String sql, Class<U> cls);
 	
 
 
